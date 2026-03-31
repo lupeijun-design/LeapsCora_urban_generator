@@ -1,0 +1,55 @@
+meta:
+  name: step4_pedestrian_network_defaults
+  version: 0.1.0
+  unit: meter
+
+global:
+  random_seed: 42
+  merge_node_distance_m: 1.5
+  nearest_connect_distance_m: 30.0
+  indoor_link_distance_m: 60.0
+  node_inward_offset_m: 1.0
+
+outdoor:
+  primary_priority: high
+  secondary_priority: medium
+  back_priority: low
+  back_continuity:
+    residential: false
+    commercial: true
+  main_spine_frontage_types: [primary_frontage]
+  secondary_spine_frontage_types: [secondary_frontage]
+  back_spine_frontage_types: [back_frontage]
+
+indoor:
+  mall:
+    enabled: true
+    connect_main_to_atrium: true
+    connect_secondary_to_atrium: true
+    connect_atrium_chain: true
+  office:
+    enabled: true
+    create_lobby_node: true
+    lobby_offset_m: 4.0
+    connect_main_to_lobby_to_core: true
+  residential:
+    enabled: true
+    create_front_band_links: true
+    max_internal_depth_m: 12.0
+
+vertical:
+  generate_level2_when:
+    require_large_mall: true
+  generate_b1_when:
+    require_metro_access: true
+  connector_modes:
+    mall_default: escalator
+    office_default: elevator
+    metro_default: stair
+
+skeleton:
+  include_node_centers_from:
+    - plaza_center
+    - atrium_center
+    - core_center
+  threshold_link_max_distance_m: 25.0

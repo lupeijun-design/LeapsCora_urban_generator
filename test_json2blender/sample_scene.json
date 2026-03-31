@@ -1,0 +1,172 @@
+{
+  "schema_version": "0.1.0",
+  "scene_info": {
+    "scene_id": "sample_001",
+    "scene_name": "Simple two-block test scene",
+    "coordinate_system": "local_xy_up_z",
+    "unit": "meter"
+  },
+  "generated": {
+    "block_boundaries": [
+      {
+        "id": "block_001",
+        "polygon": [[0, 0], [60, 0], [60, 40], [0, 40], [0, 0]]
+      },
+      {
+        "id": "block_002",
+        "polygon": [[70, 0], [130, 0], [130, 40], [70, 40], [70, 0]]
+      }
+    ],
+    "frontage_segments": [
+      {
+        "id": "frontage_001",
+        "block_id": "block_001",
+        "polyline": [[0, 0], [60, 0]],
+        "frontage_type": "primary_frontage"
+      },
+      {
+        "id": "frontage_002",
+        "block_id": "block_002",
+        "polyline": [[70, 0], [130, 0]],
+        "frontage_type": "primary_frontage"
+      }
+    ],
+    "building_masses": [
+      {
+        "id": "bld_001",
+        "building_type": "mall",
+        "footprint": [[10, 10], [50, 10], [50, 30], [10, 30], [10, 10]],
+        "height": 18.0
+      },
+      {
+        "id": "bld_002",
+        "building_type": "office",
+        "footprint": [[80, 10], [120, 10], [120, 30], [80, 30], [80, 10]],
+        "height": 30.0
+      }
+    ],
+    "atriums": [
+      {
+        "id": "atrium_001",
+        "building_id": "bld_001",
+        "polygon": [[25, 15], [35, 15], [35, 25], [25, 25], [25, 15]]
+      }
+    ],
+    "reserved_open_spaces": [
+      {
+        "id": "open_001",
+        "open_space_type": "small_plaza",
+        "polygon": [[0, 0], [18, 0], [18, 10], [0, 10], [0, 0]]
+      }
+    ],
+    "walkable_spaces": [
+      {
+        "id": "ws_001",
+        "space_type": "street_clear_path",
+        "polygon": [[0, 0], [130, 0], [130, 6], [0, 6], [0, 0]],
+        "level": "ground"
+      },
+      {
+        "id": "ws_002",
+        "space_type": "entrance_threshold",
+        "polygon": [[24, 6], [36, 6], [36, 12], [24, 12], [24, 6]],
+        "level": "ground"
+      },
+      {
+        "id": "ws_003",
+        "space_type": "indoor_public_corridor",
+        "polygon": [[22, 12], [38, 12], [38, 28], [22, 28], [22, 12]],
+        "level": "ground"
+      }
+    ],
+    "node_spaces": [
+      {
+        "id": "ns_001",
+        "node_space_type": "small_plaza",
+        "polygon": [[0, 0], [18, 0], [18, 10], [0, 10], [0, 0]],
+        "level": "ground"
+      },
+      {
+        "id": "ns_002",
+        "node_space_type": "office_forecourt",
+        "polygon": [[92, 0], [108, 0], [108, 10], [92, 10], [92, 0]],
+        "level": "ground"
+      }
+    ],
+    "functional_zones": [
+      {
+        "id": "fz_001",
+        "zone_type": "clear_zone",
+        "polygon": [[0, 0], [130, 0], [130, 4], [0, 4], [0, 0]],
+        "level": "ground"
+      },
+      {
+        "id": "fz_002",
+        "zone_type": "frontage_zone",
+        "polygon": [[0, 4], [130, 4], [130, 8], [0, 8], [0, 4]],
+        "level": "ground"
+      },
+      {
+        "id": "fz_003",
+        "zone_type": "threshold_zone",
+        "polygon": [[24, 6], [36, 6], [36, 12], [24, 12], [24, 6]],
+        "level": "ground"
+      }
+    ],
+    "placed_elements": [
+      {
+        "id": "elem_001",
+        "element_type": "bench",
+        "position": [10, 8],
+        "rotation": 0.0
+      },
+      {
+        "id": "elem_002",
+        "element_type": "signage",
+        "position": [30, 10],
+        "rotation": 0.0
+      },
+      {
+        "id": "elem_003",
+        "element_type": "planter",
+        "position": [100, 8],
+        "rotation": 0.0
+      }
+    ]
+  },
+  "semantics": {
+    "space_labels": [
+      { "target_id": "ws_001", "label": "traversable_area" },
+      { "target_id": "ws_002", "label": "threshold" },
+      { "target_id": "ws_003", "label": "indoor_public" }
+    ],
+    "element_labels": [
+      { "target_id": "elem_001", "label": "obstacle" },
+      { "target_id": "elem_002", "label": "entrance_portal" },
+      { "target_id": "elem_003", "label": "obstacle" }
+    ]
+  },
+  "render_bindings": {
+    "material_classes": {
+      "bld_001": "building_facade_commercial",
+      "bld_002": "building_facade_office",
+      "open_001": "plaza_default",
+      "ws_001": "pavement_main",
+      "ws_002": "pavement_main",
+      "ws_003": "indoor_floor_mall",
+      "atrium_001": "atrium_default",
+      "elem_001": "urban_furniture_default",
+      "elem_002": "urban_furniture_default",
+      "elem_003": "urban_furniture_default"
+    },
+    "asset_classes": {
+      "elem_001": "bench_standard",
+      "elem_002": "signage_wall_mounted",
+      "elem_003": "planter_standard"
+    },
+    "style_tags": {
+      "bld_001": ["modern_commercial"],
+      "bld_002": ["office_minimal"]
+    }
+  }
+}

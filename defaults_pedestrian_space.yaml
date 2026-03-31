@@ -1,0 +1,73 @@
+meta:
+  name: step5_pedestrian_space_defaults
+  version: 0.1.0
+  unit: meter
+  sources:
+    - name: ADA Accessible Route (Section 403.5.1 / 403.5.3)
+      url: https://www.access-board.gov/ada/chapter/ch04/
+      note: "36 in (0.915m) min clear width; 60 in (1.525m) passing/turning reference"
+    - name: IBC minimum corridor width table (Table 1018.2, ICC doc)
+      url: https://www.iccsafe.org/wp-content/uploads/02_IBC-G1.pdf
+      note: "44 in (1.118m) typical minimum corridor width"
+    - name: NACTO Sidewalk Design Guide
+      url: https://nacto.org/publication/urban-street-design-guide/street-design-elements/sidewalks/sidewalk-design/
+      note: "Desired through zone 6 ft (1.83m), absolute minimum 5 ft (1.52m), 8 ft desirable near traffic"
+
+global:
+  random_seed: 42
+  min_polygon_area_sqm: 4.0
+  gap_smooth_distance_m: 1.5
+  merge_touch_distance_m: 0.6
+  use_shapely_union: true
+
+outdoor_clear_passage:
+  min_accessible_width_m: 1.525
+  main_width_m: 6.0
+  secondary_width_m: 4.0
+  back_width_m: 3.0
+  connector_width_m: 2.4
+
+threshold_space:
+  main_entry_width_m: 4.0
+  secondary_entry_width_m: 2.4
+  service_entry_width_m: 2.0
+  main_entry_depth_m: 4.0
+  secondary_entry_depth_m: 3.0
+  service_entry_depth_m: 2.5
+  min_turning_diameter_m: 1.525
+
+semi_public_frontage_band:
+  commercial_width_m: 3.0
+  office_width_m: 2.4
+  residential_width_m: 2.0
+
+indoor_public_corridor:
+  min_corridor_width_m: 1.118
+  mall_width_m: 6.0
+  office_width_m: 3.0
+  residential_width_m: 2.4
+
+node_spaces:
+  min_small_plaza_area_sqm: 50.0
+  atrium_forecourt_area_sqm: 80.0
+  office_lobby_forecourt_area_sqm: 60.0
+  corner_expansion_area_sqm: 36.0
+
+reserved_level_spaces:
+  level2_corridor_width_m: 3.0
+  basement_corridor_width_m: 3.0
+
+node_generation:
+  outdoor_node_area_sqm: 12.0
+  indoor_node_area_sqm: 16.0
+  rectangle_aspect_ratio: 1.5
+
+heights:
+  use_building_first_floor_height: true
+  fallback_space_height_m: 4.0
+  outdoor_space_height_m: 0.25
+
+cleanup:
+  remove_sliver_area_sqm: 4.0
+  enforce_indoor_continuous_per_building: true
+  smooth_gap_by_bbox_union: true

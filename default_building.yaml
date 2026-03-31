@@ -1,0 +1,174 @@
+global:
+  solver_grid_m: 5.0
+  random_seed: 110
+  default_open_space_buffer_m: 5.0
+
+setbacks:
+  main_street: 10.0
+  secondary_street: 8.0
+  back_street: 6.0
+  scenic_street: 10.0
+  internal_street: 5.0
+
+corner_reservations:
+  normal_corner: 0.0
+  open_plaza_corner: 12.0
+  transit_corner: 15.0
+
+transit_influence:
+  metro_open_space_reserve_m: 15.0
+  bus_open_space_reserve_m: 8.0
+  entry_priority_boost: 2.0
+
+multi_mass_rules:
+  min_gap_between_masses_m: 12.0
+  large_plot_area_threshold_sqm: 12000
+  medium_plot_area_threshold_sqm: 6000
+  max_masses_default: 4
+
+residential:
+  podium_retail:
+    depth_range_m: [8.0, 15.0]
+    depth_default_m: 12.0
+    floors_range: [2, 3]
+    floor_heights_m: [5.0, 4.0, 4.0]
+    frontage_mode_choices: [ 2, 3, 4]
+    frontage_range_m: [4.0, 9.0]
+    frontage_default_m: 6.0
+    generate_on_edges:
+      - main_street
+      - secondary_street
+      - corner
+    continuity_probability: 0.75
+    random_gap_probability: 0.2
+
+  tower:
+    footprint_width_range_m: [18.0, 30.0]
+    footprint_length_range_m: [24.0, 45.0]
+    default_floor_height_m: 3.0
+    min_spacing_m: 18.0
+    preferred_count_range: [1, 4]
+    layout_style_choices: [point, row]
+    point_layout:
+      footprint_size_m: [40.0, 40.0]
+      ew_gap_min_m: 26.0
+      ew_gap_max_m: 50.0
+      ew_gap_formula:
+        base_m: 15.0
+        height_threshold_m: 30.0
+        slope: 0.3
+      ns_gap_min_m: 26.0
+      ns_gap_max_m: 50.0
+      ns_gap_formula:
+        base_m: 24.0
+        height_threshold_m: 30.0
+        slope: 0.5
+    row_layout:
+      depth_ns_m: 20.0
+      length_ew_max_m: 80.0
+      length_ew_min_m: 40.0
+      ew_gap_m: 13.0
+      ns_gap_formula:
+        base_m: 33.0
+        height_threshold_m: 30.0
+        slope: 0.8
+
+commercial:
+  default_floor_height_m: 4.8
+  prototype_mode_choices: [1, 2, 3]
+  prototype_mode_exclude_type_1_when_long_side_gt_m: 120.0
+  short_side_fallback_threshold_m: 50.0
+  short_side_fallback_bar_depth_m: 20.0
+  short_side_fallback_shape_choices: [L, U]
+  courtyard:
+    perimeter_depth_short_side_50_120_m: [12.0, 30.0]
+    perimeter_depth_long_side_50_120_m: [12.0, 30.0]
+    perimeter_depth_default_m: 20.0
+  mall_bigbox:
+    size_min_m: [50.0, 90.0]
+    size_max_m: [100.0, 160.0]
+    attach_mode_choices: [main_side, opposite_main_side]
+  multi_box:
+    short_side_50_120_split_choices: ["2x2", "2x3"]
+    short_side_120_200_split: "3x3"
+    primary_secondary_ratio: [1.5, 1.0]
+    primary_secondary_secondary_ratio: [1.5, 1.0, 1.0]
+    box_offset_range_m: [5.0, 10.0]
+  mall_rect:
+    small_size_m: [80.0, 120.0]
+    medium_size_m: [100.0, 160.0]
+    large_size_m: [130.0, 220.0]
+
+    public_pedestrian_space_ratio_range: [0.22, 0.35]
+    public_pedestrian_space_ratio_default: 0.24
+
+    atrium_trigger_gfa_sqm:
+      small_node: 20000
+      main_atrium: 30000
+      multi_atrium: 80000
+
+    atrium_default_size_m: [16.0, 24.0]
+    atrium_secondary_size_m: [12.0, 18.0]
+    atrium_large_size_m: [18.0, 30.0]
+
+    corridor_width_m:
+      normal: [3.5, 4.0]
+      around_atrium: [5.0, 6.0]
+
+    buffer_around_atrium_m: 8.0
+    preferred_entry_edges:
+      - main_street
+      - transit_corner
+      - open_plaza_corner
+
+office:
+  default_floor_height_m: 4.0
+  floorplate_area_range_sqm: [1600, 2500]
+  floorplate_area_default_sqm: 2000
+
+  workzone_depth_range_m: [9.0, 13.0]
+
+  floorplate_short_side_range_m: [35.0, 45.0]
+  floorplate_long_side_range_m: [45.0, 60.0]
+  floorplate_default_size_m: [40.0, 50.0]
+
+  core_ratio_range: [0.25, 0.30]
+  core_ratio_default: 0.27
+
+  core_size_options_m:
+    small: [16.0, 22.0]
+    medium: [18.0, 26.0]
+    large: [20.0, 28.0]
+
+  forecourt_depth_range_m: [8.0, 15.0]
+  forecourt_default_m: 10.0
+
+  multi_tower:
+    enable_when_plot_area_gt_sqm: 12000
+    preferred_tower_count_range: [1, 3]
+    min_tower_spacing_m: 20.0
+  tower_podium:
+    inter_zone_gap_m: 20.0
+    short_side_two_row_threshold_m: 180.0
+    ratio_single_max: 1.6
+    ratio_double_max: 2.4
+    ratio_triple_max: 3.2
+    ratio_quad_max: 4.0
+    ratio_penta_max: 5.0
+    plaza_retreat_probability: 0.7
+    plaza_retreat_priority_weights:
+      primary_or_important: 0.6
+      secondary: 0.4
+    plaza_retreat_depth_m: 12.0
+    podium_height_m: 15.0
+    tower_floorplate_short_range_m: [30.0, 50.0]
+    tower_floorplate_long_range_m: [40.0, 60.0]
+
+special_rules:
+  arcade:
+    default_depth_m: 4.0
+    default_height_m: 5.4
+
+  skywalk:
+    default_width_m: 6.0
+    default_clear_height_m: 5.0

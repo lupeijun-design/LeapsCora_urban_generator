@@ -1,0 +1,95 @@
+meta:
+  name: step3_keypoint_typology_defaults
+  version: 0.1.0
+  unit: meter
+  sources:
+    - name: ADA 2010 / Bus boarding area (Section 810.2)
+      url: https://www.access-board.gov/files/ada/ADAdotstandards.pdf
+      note: "96 in x 60 in => 2.44 m x 1.525 m"
+    - name: ADA / Door clear width (Section 404.2.3 guide)
+      url: https://www.access-board.gov/ada/guides/chapter-4-entrances-doors-and-gates/
+      note: "32 in clear => 0.815 m"
+    - name: ADA / Accessible route clear width (Section 403.5.1)
+      url: https://www.access-board.gov/aba/chapter/ch04/
+      note: "36 in clear => 0.915 m"
+    - name: ADA / Turning space and clear floor (Sections 304, 305)
+      url: https://www.access-board.gov/ada/guides/chapter-3-clear-floor-or-ground-space-and-turning-space/
+      note: "60 in turning circle; 30 in x 48 in clear floor"
+    - name: Metrolinx DS-12 / Stair and runoff sizing
+      url: https://assets.metrolinx.com/image/upload/v1738255845/Documents/Engineering/DS-12_Pedestrian_Flow_Modelling_Design_Standard_v1.0.pdf
+      note: "Min stairway width 2.0 m; 5 m runoff/run-on at vertical circulation"
+    - name: VicRoads / Loading zone guideline
+      url: https://www.vicroads.vic.gov.au/~/media/files/technical-documents-new/miscellaneous-guidelines/loading-zones-guideline.pdf
+      note: "Loading bay width >=3.6 m; light rigid truck example 12 m"
+    - name: American Locker / parcel locker product dimensions
+      url: https://americanlocker.com/product/custom-line-electronic-parcel-lockers/
+      note: "Typical external 21 in W x 24 in D"
+    - name: 3H Reception specification guide
+      url: https://www.threeh.com/wp-content/uploads/2024/01/3H-Reception-SpecificationGuide.pdf
+      note: "Common transaction height around 42 in; depth options include 30 in"
+
+global:
+  random_seed: 42
+  near_distance_m: 30.0
+  transit_influence_distance_m: 35.0
+  corner_influence_distance_m: 25.0
+  anchor_influence_distance_m: 40.0
+  duplicate_merge_distance_m: 2.0
+  entrance_edge_offset_m: 0.0
+
+dimensions:
+  transit_nodes:
+    bus_boarding_rect_m: [2.44, 1.525]
+    metro_access_rect_m: [2.0, 5.0]
+  entrance:
+    min_clear_door_width_m: 0.815
+    min_access_route_width_m: 0.915
+    threshold_turning_diameter_m: 1.525
+  internal_nodes:
+    atrium_public_attract_radius_m: 22.0
+    core_influence_radius_m: 18.0
+  service_nodes:
+    pickup_node_rect_m: [1.525, 1.525]
+    parcel_locker_rect_m: [0.53, 0.61]
+    frontdesk_rect_m: [1.8, 0.76]
+    waiting_node_rect_m: [2.5, 2.5]
+    loading_point_rect_m: [3.6, 12.0]
+
+entrance_generation:
+  mall:
+    min_candidates_per_mass: 4
+    max_candidates_per_mass: 6
+    corner_bias_count: 2
+    longest_edge_fill_to: 4
+  office:
+    min_candidates_per_mass: 2
+    max_candidates_per_mass: 3
+  residential:
+    min_candidates_per_mass: 2
+    max_candidates_per_mass: 3
+
+weights:
+  frontage_level:
+    main_street: 1.00
+    scenic_street: 0.85
+    secondary_street: 0.70
+    internal_street: 0.50
+    back_street: 0.30
+  corner_value:
+    transit_corner: 1.00
+    open_plaza_corner: 0.75
+    normal_corner: 0.35
+  score_components:
+    frontage_level: 0.35
+    transit_proximity: 0.25
+    corner_value: 0.15
+    anchor_proximity: 0.20
+    threshold_potential: 0.05
+
+service_generation:
+  mall:
+    create_types: [pickup_node, waiting_node, loading_point]
+  office:
+    create_types: [property_frontdesk, waiting_node, loading_point]
+  residential:
+    create_types: [parcel_locker, property_frontdesk, waiting_node]

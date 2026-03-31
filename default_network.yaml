@@ -1,0 +1,40 @@
+default_road_width_by_class:
+  expressway: 20.0
+  primary: 10.0
+  secondary: 8.0
+  local: 6.0
+  "tree-lined avenue": 12.0
+  "internal road": 7.0
+  "internal road(residential school)": 7.0
+
+default_population_activity:
+  expressway: 0.2
+  primary: 1.0
+  secondary: 0.8
+  local: 0.4
+  "tree-lined avenue": 0.6
+  "internal road": 0.4
+  "internal road(residential school)": 0.4
+
+default_corner_radius_by_pair:
+  labels:
+    - expressway
+    - primary
+    - secondary
+    - local
+    - "tree-lined avenue"
+    - "internal road"
+  values:
+    - [16.5, 15.0, 13.5, 12.0, 11.0, 9.0]
+    - [15.0, 12.5, 12.0, 11.0, 9.0, 9.0]
+    - [13.5, 12.0, 9.0, 9.0, 7.0, 7.0]
+    - [12.0, 11.0, 9.0, 6.5, 6.5, 5.5]
+    - [11.0, 9.0, 7.0, 6.5, 6.5, 5.5]
+    - [9.0, 9.0, 7.0, 5.5, 5.5, 5.5]
+
+default_solver_grid: 5.0
+default_transit_influence_width: 5.0
+default_clear_path_width: 5.0
+default_threshold_depth: 5.0
+default_indoor_corridor_width: 10.0
+default_secondary_corridor_width: 5.0

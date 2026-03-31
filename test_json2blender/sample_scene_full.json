@@ -1,0 +1,958 @@
+{
+  "schema_version": "0.1.0",
+  "scene_info": {
+    "scene_id": "sample_full_001",
+    "scene_name": "Full schema test scene",
+    "description": "A complete multi-block test scene for Blender preview and future USD export",
+    "author": "peijun_lu",
+    "created_at": "2026-03-28T18:00:00Z",
+    "coordinate_system": "local_xy_up_z",
+    "unit": "meter"
+  },
+  "global_settings": {
+    "default_road_width_by_class": {
+      "arterial": 24.0,
+      "secondary": 16.0,
+      "local": 10.0
+    },
+    "default_corner_radius_by_pair": {
+      "arterial_arterial": 12.0,
+      "arterial_secondary": 10.0,
+      "secondary_secondary": 8.0,
+      "secondary_local": 6.0,
+      "local_local": 4.0
+    },
+    "default_solver_grid": 5.0,
+    "default_transit_influence_width": 5.0,
+    "default_clear_path_width": 3.0,
+    "default_threshold_depth": 4.0,
+    "default_indoor_corridor_width": 6.0,
+    "default_secondary_corridor_width": 4.0
+  },
+  "inputs": {
+    "roads": [
+      {
+        "id": "road_001",
+        "name": "Main Street",
+        "road_class": "arterial",
+        "custom_width": null,
+        "centerline": [[0, 0], [160, 0]],
+        "attributes": {
+          "pedestrian_priority": 0.95,
+          "vehicle_priority": 0.7
+        }
+      },
+      {
+        "id": "road_002",
+        "name": "West Avenue",
+        "road_class": "secondary",
+        "custom_width": null,
+        "centerline": [[0, 0], [0, 90]],
+        "attributes": {
+          "pedestrian_priority": 0.8,
+          "vehicle_priority": 0.6
+        }
+      },
+      {
+        "id": "road_003",
+        "name": "East Avenue",
+        "road_class": "secondary",
+        "custom_width": null,
+        "centerline": [[80, 0], [80, 90]],
+        "attributes": {
+          "pedestrian_priority": 0.75,
+          "vehicle_priority": 0.65
+        }
+      },
+      {
+        "id": "road_004",
+        "name": "North Lane",
+        "road_class": "local",
+        "custom_width": null,
+        "centerline": [[0, 45], [80, 45]],
+        "attributes": {
+          "pedestrian_priority": 0.6,
+          "vehicle_priority": 0.5
+        }
+      },
+      {
+        "id": "road_005",
+        "name": "Far East Avenue",
+        "road_class": "secondary",
+        "custom_width": null,
+        "centerline": [[160, 0], [160, 90]],
+        "attributes": {
+          "pedestrian_priority": 0.7,
+          "vehicle_priority": 0.6
+        }
+      }
+    ],
+    "intersections": [
+      { "id": "int_001", "road_ids": ["road_001", "road_002"], "position": [0, 0] },
+      { "id": "int_002", "road_ids": ["road_001", "road_003"], "position": [80, 0] },
+      { "id": "int_003", "road_ids": ["road_004", "road_002"], "position": [0, 45] },
+      { "id": "int_004", "road_ids": ["road_004", "road_003"], "position": [80, 45] }
+    ],
+    "transit_nodes": [
+      {
+        "id": "metro_001",
+        "type": "metro",
+        "position": [12, 6],
+        "served_frontage_ids": []
+      },
+      {
+        "id": "bus_001",
+        "type": "bus",
+        "position": [118, 6],
+        "served_frontage_ids": []
+      }
+    ],
+    "planning_controls": {
+      "parcel_id": "parcel_multi_001",
+      "land_use": "B1",
+      "setbacks": {
+        "primary_frontage": 8.0,
+        "secondary_frontage": 5.0,
+        "back_frontage": 3.0
+      },
+      "building_density_max": 0.5,
+      "far_max": 4.0,
+      "height_max": 80.0,
+      "special_requirements": {
+        "arcade": false,
+        "skywalk_reserved": true,
+        "underground_commercial_reserved": true
+      }
+    }
+  },
+  "generated": {
+    "step_1_network": {
+      "block_boundaries": [
+        {
+          "id": "block_001",
+          "polygon": [[0, 0], [80, 0], [80, 45], [0, 45], [0, 0]]
+        },
+        {
+          "id": "block_002",
+          "polygon": [[80, 0], [160, 0], [160, 45], [80, 45], [80, 0]]
+        }
+      ],
+      "frontage_segments": [
+        {
+          "id": "frontage_001",
+          "block_id": "block_001",
+          "polyline": [[0, 0], [80, 0]],
+          "frontage_type": "primary_frontage",
+          "adjacent_road_id": "road_001",
+          "length": 80.0,
+          "orientation": 0.0,
+          "transit_influenced": true,
+          "served_transit_node_ids": ["metro_001"]
+        },
+        {
+          "id": "frontage_002",
+          "block_id": "block_001",
+          "polyline": [[0, 0], [0, 45]],
+          "frontage_type": "secondary_frontage",
+          "adjacent_road_id": "road_002",
+          "length": 45.0,
+          "orientation": 90.0,
+          "transit_influenced": true,
+          "served_transit_node_ids": ["metro_001"]
+        },
+        {
+          "id": "frontage_003",
+          "block_id": "block_001",
+          "polyline": [[80, 0], [80, 45]],
+          "frontage_type": "secondary_frontage",
+          "adjacent_road_id": "road_003",
+          "length": 45.0,
+          "orientation": 90.0,
+          "transit_influenced": false,
+          "served_transit_node_ids": []
+        },
+        {
+          "id": "frontage_004",
+          "block_id": "block_001",
+          "polyline": [[0, 45], [80, 45]],
+          "frontage_type": "back_frontage",
+          "adjacent_road_id": "road_004",
+          "length": 80.0,
+          "orientation": 0.0,
+          "transit_influenced": false,
+          "served_transit_node_ids": []
+        },
+
+        {
+          "id": "frontage_005",
+          "block_id": "block_002",
+          "polyline": [[80, 0], [160, 0]],
+          "frontage_type": "primary_frontage",
+          "adjacent_road_id": "road_001",
+          "length": 80.0,
+          "orientation": 0.0,
+          "transit_influenced": true,
+          "served_transit_node_ids": ["bus_001"]
+        },
+        {
+          "id": "frontage_006",
+          "block_id": "block_002",
+          "polyline": [[80, 0], [80, 45]],
+          "frontage_type": "secondary_frontage",
+          "adjacent_road_id": "road_003",
+          "length": 45.0,
+          "orientation": 90.0,
+          "transit_influenced": false,
+          "served_transit_node_ids": []
+        },
+        {
+          "id": "frontage_007",
+          "block_id": "block_002",
+          "polyline": [[160, 0], [160, 45]],
+          "frontage_type": "secondary_frontage",
+          "adjacent_road_id": "road_005",
+          "length": 45.0,
+          "orientation": 90.0,
+          "transit_influenced": false,
+          "served_transit_node_ids": []
+        },
+        {
+          "id": "frontage_008",
+          "block_id": "block_002",
+          "polyline": [[80, 45], [160, 45]],
+          "frontage_type": "back_frontage",
+          "adjacent_road_id": "road_004",
+          "length": 80.0,
+          "orientation": 0.0,
+          "transit_influenced": false,
+          "served_transit_node_ids": []
+        }
+      ],
+      "corners": [
+        {
+          "id": "corner_001",
+          "block_id": "block_001",
+          "position": [0, 0],
+          "corner_type": "transit_corner",
+          "radius": 10.0,
+          "adjacent_frontage_ids": ["frontage_001", "frontage_002"]
+        },
+        {
+          "id": "corner_002",
+          "block_id": "block_001",
+          "position": [80, 0],
+          "corner_type": "open_plaza_corner",
+          "radius": 10.0,
+          "adjacent_frontage_ids": ["frontage_001", "frontage_003"]
+        },
+        {
+          "id": "corner_003",
+          "block_id": "block_002",
+          "position": [80, 0],
+          "corner_type": "open_plaza_corner",
+          "radius": 10.0,
+          "adjacent_frontage_ids": ["frontage_005", "frontage_006"]
+        },
+        {
+          "id": "corner_004",
+          "block_id": "block_002",
+          "position": [160, 0],
+          "corner_type": "normal_corner",
+          "radius": 8.0,
+          "adjacent_frontage_ids": ["frontage_005", "frontage_007"]
+        }
+      ],
+      "transit_influence_zones": [
+        {
+          "id": "tiz_001",
+          "transit_node_id": "metro_001",
+          "geometry_type": "polygon",
+          "polygon": [[0, 0], [24, 0], [24, 8], [0, 8], [0, 0]],
+          "width": 5.0,
+          "priority_boost": 0.25,
+          "associated_frontage_ids": ["frontage_001", "frontage_002"]
+        },
+        {
+          "id": "tiz_002",
+          "transit_node_id": "bus_001",
+          "geometry_type": "polygon",
+          "polygon": [[102, 0], [130, 0], [130, 8], [102, 8], [102, 0]],
+          "width": 5.0,
+          "priority_boost": 0.15,
+          "associated_frontage_ids": ["frontage_005"]
+        }
+      ]
+    },
+
+    "step_2_massing": {
+      "buildable_zones": [
+        {
+          "id": "bz_001",
+          "polygon": [[8, 8], [72, 8], [72, 37], [8, 37], [8, 8]]
+        },
+        {
+          "id": "bz_002",
+          "polygon": [[88, 8], [152, 8], [152, 37], [88, 37], [88, 8]]
+        }
+      ],
+      "building_masses": [
+        {
+          "id": "bld_001",
+          "building_type": "mall",
+          "footprint": [[12, 10], [68, 10], [68, 34], [12, 34], [12, 10]],
+          "height": 24.0,
+          "levels_above_ground": 4,
+          "levels_below_ground": 1,
+          "frontage_alignment": {
+            "primary_frontage_aligned": true,
+            "secondary_frontage_aligned": true
+          },
+          "entry_preference_faces": ["south", "west"],
+          "related_frontage_ids": ["frontage_001", "frontage_002"],
+          "reserved_open_space_ids": ["open_001"]
+        },
+        {
+          "id": "bld_002",
+          "building_type": "office",
+          "footprint": [[95, 12], [145, 12], [145, 34], [95, 34], [95, 12]],
+          "height": 42.0,
+          "levels_above_ground": 10,
+          "levels_below_ground": 1,
+          "frontage_alignment": {
+            "primary_frontage_aligned": true,
+            "secondary_frontage_aligned": false
+          },
+          "entry_preference_faces": ["south"],
+          "related_frontage_ids": ["frontage_005"],
+          "reserved_open_space_ids": ["open_002"]
+        }
+      ],
+      "atriums": [
+        {
+          "id": "atrium_001",
+          "building_id": "bld_001",
+          "polygon": [[32, 16], [48, 16], [48, 28], [32, 28], [32, 16]],
+          "service_radius": 22.0,
+          "multi_level": true
+        }
+      ],
+      "cores": [
+        {
+          "id": "core_001",
+          "building_id": "bld_002",
+          "polygon": [[115, 18], [125, 18], [125, 28], [115, 28], [115, 18]],
+          "core_type": "office_core",
+          "influence_radius": 18.0
+        }
+      ],
+      "podium_retail_bands": [
+        {
+          "id": "prb_001",
+          "building_id": "bld_002",
+          "related_frontage_ids": ["frontage_005"],
+          "polygon": [[95, 12], [145, 12], [145, 18], [95, 18], [95, 12]],
+          "shop_unit_depth": 6.0,
+          "continuous": true
+        }
+      ],
+      "reserved_open_spaces": [
+        {
+          "id": "open_001",
+          "open_space_type": "small_plaza",
+          "polygon": [[0, 0], [22, 0], [22, 12], [0, 12], [0, 0]],
+          "related_frontage_ids": ["frontage_001", "frontage_002"],
+          "related_corner_ids": ["corner_001"]
+        },
+        {
+          "id": "open_002",
+          "open_space_type": "forecourt",
+          "polygon": [[108, 0], [132, 0], [132, 12], [108, 12], [108, 0]],
+          "related_frontage_ids": ["frontage_005"],
+          "related_corner_ids": []
+        }
+      ]
+    },
+
+    "step_3_key_nodes": {
+      "key_nodes": [
+        {
+          "id": "node_001",
+          "node_type": "metro_access",
+          "position": [12, 6],
+          "related_transit_node_id": "metro_001"
+        },
+        {
+          "id": "node_002",
+          "node_type": "bus_access",
+          "position": [118, 6],
+          "related_transit_node_id": "bus_001"
+        },
+        {
+          "id": "node_003",
+          "node_type": "atrium_center",
+          "position": [40, 22],
+          "related_atrium_id": "atrium_001"
+        },
+        {
+          "id": "node_004",
+          "node_type": "core_center",
+          "position": [120, 23],
+          "related_core_id": "core_001"
+        },
+        {
+          "id": "node_005",
+          "node_type": "plaza_center",
+          "position": [11, 6]
+        },
+        {
+          "id": "node_006",
+          "node_type": "plaza_center",
+          "position": [120, 6]
+        }
+      ],
+      "entrance_candidates": [
+        {
+          "id": "entrance_candidate_001",
+          "building_id": "bld_001",
+          "building_type": "mall",
+          "position": [40, 10],
+          "served_frontage_id": "frontage_001",
+          "candidate_type": "main",
+          "score": 0.94,
+          "score_breakdown": {
+            "frontage_level": 0.35,
+            "transit_proximity": 0.22,
+            "corner_value": 0.12,
+            "atrium_proximity": 0.25
+          }
+        },
+        {
+          "id": "entrance_candidate_002",
+          "building_id": "bld_001",
+          "building_type": "mall",
+          "position": [12, 22],
+          "served_frontage_id": "frontage_002",
+          "candidate_type": "secondary",
+          "score": 0.81,
+          "score_breakdown": {
+            "frontage_level": 0.22,
+            "transit_proximity": 0.28,
+            "corner_value": 0.18,
+            "atrium_proximity": 0.13
+          }
+        },
+        {
+          "id": "entrance_candidate_003",
+          "building_id": "bld_002",
+          "building_type": "office",
+          "position": [120, 12],
+          "served_frontage_id": "frontage_005",
+          "candidate_type": "main",
+          "score": 0.91,
+          "score_breakdown": {
+            "frontage_level": 0.34,
+            "transit_proximity": 0.18,
+            "corner_value": 0.05,
+            "core_proximity": 0.28
+          }
+        },
+        {
+          "id": "entrance_candidate_004",
+          "building_id": "bld_002",
+          "building_type": "office",
+          "position": [145, 22],
+          "served_frontage_id": "frontage_007",
+          "candidate_type": "service",
+          "score": 0.45,
+          "score_breakdown": {
+            "frontage_level": 0.12,
+            "transit_proximity": 0.05,
+            "corner_value": 0.03,
+            "core_proximity": 0.25
+          }
+        }
+      ],
+      "service_nodes": [
+        {
+          "id": "service_001",
+          "service_type": "pickup_node",
+          "position": [36, 12],
+          "building_id": "bld_001",
+          "priority": "high"
+        },
+        {
+          "id": "service_002",
+          "service_type": "delivery_node",
+          "position": [44, 12],
+          "building_id": "bld_001",
+          "priority": "high"
+        },
+        {
+          "id": "service_003",
+          "service_type": "property_frontdesk",
+          "position": [120, 16],
+          "building_id": "bld_002",
+          "priority": "medium"
+        },
+        {
+          "id": "service_004",
+          "service_type": "parcel_locker",
+          "position": [104, 14],
+          "building_id": "bld_002",
+          "priority": "medium"
+        },
+        {
+          "id": "service_005",
+          "service_type": "loading_point",
+          "position": [148, 22],
+          "building_id": "bld_002",
+          "priority": "low"
+        },
+        {
+          "id": "service_006",
+          "service_type": "waiting_node",
+          "position": [124, 10],
+          "building_id": "bld_002",
+          "priority": "medium"
+        }
+      ]
+    },
+
+    "step_4_topology": {
+      "circulation_networks": {
+        "ground_outdoor": {
+          "nodes": [
+            { "id": "g_node_001", "position": [6, 6], "node_type": "plaza" },
+            { "id": "g_node_002", "position": [40, 6], "node_type": "mall_forecourt" },
+            { "id": "g_node_003", "position": [80, 6], "node_type": "cross_block_edge" },
+            { "id": "g_node_004", "position": [120, 6], "node_type": "office_forecourt" }
+          ],
+          "edges": [
+            {
+              "id": "g_edge_001",
+              "from": "g_node_001",
+              "to": "g_node_002",
+              "edge_type": "main_spine",
+              "length": 34.0,
+              "priority": "high"
+            },
+            {
+              "id": "g_edge_002",
+              "from": "g_node_002",
+              "to": "g_node_003",
+              "edge_type": "main_spine",
+              "length": 40.0,
+              "priority": "high"
+            },
+            {
+              "id": "g_edge_003",
+              "from": "g_node_003",
+              "to": "g_node_004",
+              "edge_type": "main_spine",
+              "length": 40.0,
+              "priority": "high"
+            }
+          ]
+        },
+        "ground_indoor_public": {
+          "nodes": [
+            { "id": "i_node_001", "position": [40, 14], "node_type": "mall_entry_hall" },
+            { "id": "i_node_002", "position": [40, 22], "node_type": "atrium_center" },
+            { "id": "i_node_003", "position": [120, 14], "node_type": "office_vestibule" },
+            { "id": "i_node_004", "position": [120, 20], "node_type": "office_lobby" },
+            { "id": "i_node_005", "position": [120, 23], "node_type": "office_core_access" }
+          ],
+          "edges": [
+            {
+              "id": "i_edge_001",
+              "from": "i_node_001",
+              "to": "i_node_002",
+              "edge_type": "indoor_main_corridor",
+              "length": 8.0,
+              "priority": "high"
+            },
+            {
+              "id": "i_edge_002",
+              "from": "i_node_003",
+              "to": "i_node_004",
+              "edge_type": "indoor_main_corridor",
+              "length": 6.0,
+              "priority": "high"
+            },
+            {
+              "id": "i_edge_003",
+              "from": "i_node_004",
+              "to": "i_node_005",
+              "edge_type": "indoor_secondary_corridor",
+              "length": 3.0,
+              "priority": "medium"
+            }
+          ]
+        },
+        "vertical_transition": {
+          "nodes": [
+            {
+              "id": "v_node_001",
+              "position": [44, 24],
+              "node_type": "vertical_connector_reserved",
+              "connector_mode": "escalator"
+            },
+            {
+              "id": "v_node_002",
+              "position": [122, 22],
+              "node_type": "vertical_connector_reserved",
+              "connector_mode": "elevator"
+            }
+          ],
+          "edges": []
+        }
+      },
+      "circulation_skeleton": {
+        "main_spines": [
+          {
+            "id": "spine_001",
+            "polyline": [[6, 6], [40, 6], [80, 6], [120, 6]],
+            "spine_type": "main"
+          },
+          {
+            "id": "spine_002",
+            "polyline": [[40, 10], [40, 14], [40, 22]],
+            "spine_type": "main"
+          },
+          {
+            "id": "spine_003",
+            "polyline": [[120, 12], [120, 14], [120, 20]],
+            "spine_type": "main"
+          }
+        ],
+        "secondary_spines": [
+          {
+            "id": "spine_004",
+            "polyline": [[120, 20], [120, 23]],
+            "spine_type": "secondary"
+          }
+        ],
+        "threshold_spines": [
+          {
+            "id": "spine_005",
+            "polyline": [[40, 6], [40, 10]],
+            "spine_type": "threshold"
+          },
+          {
+            "id": "spine_006",
+            "polyline": [[120, 6], [120, 12]],
+            "spine_type": "threshold"
+          }
+        ],
+        "vertical_spines": [
+          {
+            "id": "spine_007",
+            "polyline": [[44, 24], [44, 24]],
+            "spine_type": "vertical"
+          }
+        ]
+      }
+    },
+
+    "step_5_spaces": {
+      "walkable_spaces": [
+        {
+          "id": "ws_001",
+          "space_type": "street_clear_path",
+          "polygon": [[0, 0], [160, 0], [160, 6], [0, 6], [0, 0]],
+          "level": "ground",
+          "min_clear_width": 6.0,
+          "related_spine_ids": ["spine_001"]
+        },
+        {
+          "id": "ws_002",
+          "space_type": "entrance_threshold",
+          "polygon": [[34, 6], [46, 6], [46, 12], [34, 12], [34, 6]],
+          "level": "ground",
+          "related_spine_ids": ["spine_005"],
+          "related_entrance_candidate_id": "entrance_candidate_001",
+          "related_building_id": "bld_001"
+        },
+        {
+          "id": "ws_003",
+          "space_type": "indoor_public_corridor",
+          "polygon": [[35, 12], [45, 12], [45, 30], [35, 30], [35, 12]],
+          "level": "ground",
+          "related_spine_ids": ["spine_002"],
+          "related_building_id": "bld_001"
+        },
+        {
+          "id": "ws_004",
+          "space_type": "atrium_spillout",
+          "polygon": [[30, 14], [50, 14], [50, 30], [30, 30], [30, 14]],
+          "level": "ground",
+          "related_building_id": "bld_001"
+        },
+        {
+          "id": "ws_005",
+          "space_type": "entrance_threshold",
+          "polygon": [[114, 6], [126, 6], [126, 14], [114, 14], [114, 6]],
+          "level": "ground",
+          "related_spine_ids": ["spine_006"],
+          "related_entrance_candidate_id": "entrance_candidate_003",
+          "related_building_id": "bld_002"
+        },
+        {
+          "id": "ws_006",
+          "space_type": "lobby_space",
+          "polygon": [[112, 14], [128, 14], [128, 24], [112, 24], [112, 14]],
+          "level": "ground",
+          "related_spine_ids": ["spine_003", "spine_004"],
+          "related_building_id": "bld_002"
+        }
+      ],
+      "node_spaces": [
+        {
+          "id": "ns_001",
+          "node_space_type": "small_plaza",
+          "polygon": [[0, 0], [22, 0], [22, 12], [0, 12], [0, 0]],
+          "level": "ground"
+        },
+        {
+          "id": "ns_002",
+          "node_space_type": "mall_entry_plaza",
+          "polygon": [[30, 0], [50, 0], [50, 12], [30, 12], [30, 0]],
+          "level": "ground"
+        },
+        {
+          "id": "ns_003",
+          "node_space_type": "office_forecourt",
+          "polygon": [[108, 0], [132, 0], [132, 12], [108, 12], [108, 0]],
+          "level": "ground"
+        },
+        {
+          "id": "ns_004",
+          "node_space_type": "corner_expansion",
+          "polygon": [[76, 0], [88, 0], [88, 12], [76, 12], [76, 0]],
+          "level": "ground"
+        }
+      ]
+    },
+
+    "step_6_functionalization": {
+      "functional_zones": [
+        {
+          "id": "fz_001",
+          "zone_type": "clear_zone",
+          "polygon": [[0, 0], [160, 0], [160, 4], [0, 4], [0, 0]],
+          "level": "ground",
+          "priority": "high"
+        },
+        {
+          "id": "fz_002",
+          "zone_type": "frontage_zone",
+          "polygon": [[0, 4], [160, 4], [160, 8], [0, 8], [0, 4]],
+          "level": "ground",
+          "priority": "high"
+        },
+        {
+          "id": "fz_003",
+          "zone_type": "threshold_zone",
+          "polygon": [[34, 6], [46, 6], [46, 12], [34, 12], [34, 6]],
+          "level": "ground",
+          "priority": "high"
+        },
+        {
+          "id": "fz_004",
+          "zone_type": "furnishing_zone",
+          "polygon": [[8, 8], [152, 8], [152, 12], [8, 12], [8, 8]],
+          "level": "ground",
+          "priority": "medium"
+        },
+        {
+          "id": "fz_005",
+          "zone_type": "waiting_zone",
+          "polygon": [[118, 8], [130, 8], [130, 12], [118, 12], [118, 8]],
+          "level": "ground",
+          "priority": "medium"
+        },
+        {
+          "id": "fz_006",
+          "zone_type": "display_zone",
+          "polygon": [[24, 12], [56, 12], [56, 16], [24, 16], [24, 12]],
+          "level": "ground",
+          "priority": "low"
+        }
+      ],
+      "placed_elements": [
+        {
+          "id": "elem_001",
+          "element_type": "bench",
+          "placement_type": "instance",
+          "position": [12, 9.5],
+          "rotation": 0.0,
+          "related_zone_id": "fz_004"
+        },
+        {
+          "id": "elem_002",
+          "element_type": "signage",
+          "placement_type": "instance",
+          "position": [40, 11],
+          "rotation": 0.0,
+          "related_zone_id": "fz_003"
+        },
+        {
+          "id": "elem_003",
+          "element_type": "planter",
+          "placement_type": "instance",
+          "position": [22, 9.5],
+          "rotation": 0.0,
+          "related_zone_id": "fz_004"
+        },
+        {
+          "id": "elem_004",
+          "element_type": "parcel_locker",
+          "placement_type": "instance",
+          "position": [104, 14],
+          "rotation": 0.0,
+          "related_zone_id": "fz_004"
+        },
+        {
+          "id": "elem_005",
+          "element_type": "frontdesk",
+          "placement_type": "instance",
+          "position": [120, 17],
+          "rotation": 0.0,
+          "related_zone_id": "fz_003"
+        },
+        {
+          "id": "elem_006",
+          "element_type": "awning",
+          "placement_type": "anchor",
+          "position": [40, 12],
+          "rotation": 0.0,
+          "related_zone_id": "fz_006"
+        },
+        {
+          "id": "elem_007",
+          "element_type": "bollard",
+          "placement_type": "instance",
+          "position": [128, 9],
+          "rotation": 0.0,
+          "related_zone_id": "fz_005"
+        }
+      ],
+      "pattern_applications": [
+        {
+          "id": "pattern_001",
+          "pattern_type": "mall_corner_entry",
+          "applied_to": ["frontage_001", "corner_001", "entrance_candidate_001"],
+          "parameters": {
+            "entry_width": 10.0,
+            "dual_door": true
+          }
+        },
+        {
+          "id": "pattern_002",
+          "pattern_type": "office_forecourt_entry",
+          "applied_to": ["frontage_005", "open_002", "entrance_candidate_003"],
+          "parameters": {
+            "forecourt_depth": 12.0,
+            "symmetry": true
+          }
+        }
+      ]
+    }
+  },
+
+  "semantics": {
+    "space_labels": [
+      { "target_id": "ws_001", "label": "traversable_area" },
+      { "target_id": "ws_002", "label": "threshold" },
+      { "target_id": "ws_003", "label": "indoor_public" },
+      { "target_id": "ws_004", "label": "indoor_public" },
+      { "target_id": "ws_005", "label": "threshold" },
+      { "target_id": "ws_006", "label": "indoor_public" },
+      { "target_id": "ns_001", "label": "semi_public" },
+      { "target_id": "ns_002", "label": "semi_public" },
+      { "target_id": "ns_003", "label": "semi_public" }
+    ],
+    "node_labels": [
+      { "target_id": "service_001", "label": "pickup_node" },
+      { "target_id": "service_002", "label": "delivery_node" },
+      { "target_id": "service_006", "label": "waiting_node" },
+      { "target_id": "node_001", "label": "transit_connector" },
+      { "target_id": "node_002", "label": "transit_connector" },
+      { "target_id": "v_node_001", "label": "vertical_connector_reserved" },
+      { "target_id": "v_node_002", "label": "vertical_connector_reserved" }
+    ],
+    "element_labels": [
+      { "target_id": "elem_001", "label": "obstacle" },
+      { "target_id": "elem_002", "label": "entrance_portal" },
+      { "target_id": "elem_003", "label": "obstacle" },
+      { "target_id": "elem_004", "label": "obstacle" },
+      { "target_id": "elem_005", "label": "restricted_area" }
+    ],
+    "restricted_areas": [
+      {
+        "id": "ra_001",
+        "polygon": [[140, 20], [150, 20], [150, 30], [140, 30], [140, 20]],
+        "reason": "staff_only"
+      }
+    ]
+  },
+
+  "render_bindings": {
+    "material_classes": {
+      "bld_001": "building_facade_commercial",
+      "bld_002": "building_facade_office",
+      "open_001": "plaza_default",
+      "open_002": "plaza_default",
+      "ws_001": "pavement_main",
+      "ws_002": "pavement_main",
+      "ws_003": "indoor_floor_mall",
+      "ws_004": "atrium_default",
+      "ws_005": "pavement_main",
+      "ws_006": "indoor_floor_office",
+      "ns_001": "plaza_default",
+      "ns_002": "plaza_default",
+      "ns_003": "plaza_default",
+      "fz_001": "functional_zone_overlay",
+      "fz_002": "functional_zone_overlay",
+      "fz_003": "functional_zone_overlay",
+      "fz_004": "functional_zone_overlay",
+      "fz_005": "functional_zone_overlay",
+      "fz_006": "functional_zone_overlay",
+      "elem_001": "urban_furniture_default",
+      "elem_002": "urban_furniture_default",
+      "elem_003": "urban_furniture_default",
+      "elem_004": "urban_furniture_default",
+      "elem_005": "urban_furniture_default",
+      "elem_006": "urban_furniture_default",
+      "elem_007": "urban_furniture_default"
+    },
+    "asset_classes": {
+      "elem_001": "bench_standard",
+      "elem_002": "signage_wall_mounted",
+      "elem_003": "planter_standard",
+      "elem_004": "parcel_locker_standard",
+      "elem_005": "frontdesk_standard",
+      "elem_006": "awning_standard",
+      "elem_007": "bollard_standard"
+    },
+    "style_tags": {
+      "bld_001": ["modern_commercial", "glass_frontage"],
+      "bld_002": ["office_minimal", "stone_glass"]
+    }
+  },
+
+  "export_hints": {
+    "blender": {
+      "generate_simple_mesh": true,
+      "extrude_buildings": true,
+      "show_semantic_overlays": true,
+      "step_collections": true
+    },
+    "usd": {
+      "export_as_xform_hierarchy": true,
+      "separate_collision_prims": true,
+      "attach_semantic_labels": true,
+      "use_instancing_for_repeated_assets": true
+    }
+  }
+}
