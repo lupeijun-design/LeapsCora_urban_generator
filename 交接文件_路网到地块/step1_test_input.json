@@ -1,0 +1,200 @@
+{
+  "schema_version": "0.1.0",
+  "scene_info": {
+    "scene_id": "grid_step1_test_3x3_001",
+    "scene_name": "3x3 road-centerline grid test",
+    "coordinate_system": "local_xy_up_z",
+    "unit": "meter"
+  },
+  "inputs": {
+    "roads": [
+      {
+        "id": "road_ns_001",
+        "name": "NS-1",
+        "road_class": "tree-lined avenue",
+        "custom_width": null,
+        "centerline": [
+          [ 0, 0 ],
+          [ 0, 340 ]
+        ],
+        "attributes": {}
+      },
+      {
+        "id": "road_ns_002",
+        "name": "NS-2",
+        "road_class": "primary",
+        "custom_width": null,
+        "centerline": [
+          [ 120, 0 ],
+          [ 120, 340 ]
+        ],
+        "attributes": {}
+      },
+      {
+        "id": "road_ns_003",
+        "name": "NS-3",
+        "road_class": "secondary",
+        "custom_width": null,
+        "centerline": [
+          [ 340, 0 ],
+          [ 340, 340 ]
+        ],
+        "attributes": {}
+      },
+      {
+        "id": "road_we_001",
+        "name": "WE-1",
+        "road_class": "local",
+        "custom_width": null,
+        "centerline": [
+          [ 0, 0 ],
+          [ 340, 0 ]
+        ],
+        "attributes": {}
+      },
+      {
+        "id": "road_we_002",
+        "name": "WE-2",
+        "road_class": "expressway",
+        "custom_width": null,
+        "centerline": [
+          [ 0, 120 ],
+          [ 340, 120 ]
+        ],
+        "attributes": {}
+      },
+      {
+        "id": "road_we_003",
+        "name": "WE-3",
+        "road_class": "internal road",
+        "custom_width": null,
+        "centerline": [
+          [ 0, 340 ],
+          [ 340, 340 ]
+        ],
+        "attributes": {}
+      }
+    ],
+    "intersections": [
+      {
+        "id": "int_01_01",
+        "road_ids": [ "road_ns_001", "road_we_001" ],
+        "position": [ 0, 0 ]
+      },
+      {
+        "id": "int_01_02",
+        "road_ids": [ "road_ns_001", "road_we_002" ],
+        "position": [ 0, 120 ]
+      },
+      {
+        "id": "int_01_03",
+        "road_ids": [ "road_ns_001", "road_we_003" ],
+        "position": [ 0, 340 ]
+      },
+      {
+        "id": "int_02_01",
+        "road_ids": [ "road_ns_002", "road_we_001" ],
+        "position": [ 120, 0 ]
+      },
+      {
+        "id": "int_02_02",
+        "road_ids": [ "road_ns_002", "road_we_002" ],
+        "position": [ 120, 120 ]
+      },
+      {
+        "id": "int_02_03",
+        "road_ids": [ "road_ns_002", "road_we_003" ],
+        "position": [ 120, 340 ]
+      },
+      {
+        "id": "int_03_01",
+        "road_ids": [ "road_ns_003", "road_we_001" ],
+        "position": [ 340, 0 ]
+      },
+      {
+        "id": "int_03_02",
+        "road_ids": [ "road_ns_003", "road_we_002" ],
+        "position": [ 340, 120 ]
+      },
+      {
+        "id": "int_03_03",
+        "road_ids": [ "road_ns_003", "road_we_003" ],
+        "position": [ 340, 340 ]
+      }
+    ],
+    "transit_nodes": [
+      {
+        "id": "metro_001",
+        "type": "metro",
+        "position": [ 115, 8 ],
+        "served_frontage_ids": []
+      },
+      {
+        "id": "bus_001",
+        "type": "bus",
+        "position": [ 332, 120 ],
+        "served_frontage_ids": []
+      }
+    ],
+    "planning_controls": {
+      "parcel_controls": [
+        {
+          "parcel_id": "parcel_01_01",
+          "land_use": "B2",
+          "arcade_level": "lower",
+          "center": [ 60.0, 60.0 ],
+          "setbacks": {
+            "primary_frontage": 8.0,
+            "secondary_frontage": 5.0,
+            "back_frontage": 3.0
+          },
+          "building_density_max": 0.65,
+          "far_max": 4.0,
+          "height_max": 80.0
+        },
+        {
+          "parcel_id": "parcel_02_01",
+          "land_use": "B2",
+          "arcade_level": "lower",
+          "center": [ 230.0, 60.0 ],
+          "setbacks": {
+            "primary_frontage": 8.0,
+            "secondary_frontage": 5.0,
+            "back_frontage": 3.0
+          },
+          "building_density_max": 0.65,
+          "far_max": 4.0,
+          "height_max": 80.0
+        },
+        {
+          "parcel_id": "parcel_01_02",
+          "land_use": "B1",
+          "arcade_level": "lower",
+          "center": [ 60.0, 230.0 ],
+          "setbacks": {
+            "primary_frontage": 8.0,
+            "secondary_frontage": 5.0,
+            "back_frontage": 3.0
+          },
+          "building_density_max": 0.65,
+          "far_max": 3.5,
+          "height_max": 100.0
+        },
+        {
+          "parcel_id": "parcel_02_02",
+          "land_use": "B1",
+          "arcade_level": "lower",
+          "center": [ 230.0, 230.0 ],
+          "setbacks": {
+            "primary_frontage": 6.0,
+            "secondary_frontage": 4.0,
+            "back_frontage": 3.0
+          },
+          "building_density_max": 0.65,
+          "far_max": 2.8,
+          "height_max": 40.0
+        }
+      ]
+    }
+  }
+}
